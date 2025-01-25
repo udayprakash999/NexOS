@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NexOS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="shortcut icon"
+      href="images-apps/koala.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <div id="content">
+      <button id="openNotesBtn">
+        <img src="images-apps/note.png" width="60px" />Notes
+      </button>
+      <button id="viewSavedNotesBtn">
+        <img src="images-apps/tray.png" width="60px" />Saved Notes
+      </button>
+      <button id="openCalculatorBtn">
+        <img src="images-apps/calculator.png" width="60px" />Calculator
+      </button>
+
+      <button id="openPhotosBtn">
+        <img src="images-apps/gallery.png" width="60px" />Photos
+      </button>
+      <button id="openDocsBtn">
+        <img src="images-apps/folder.png" width="60px" />Docs
+      </button>
+
+      <button id="openClockBtn">
+        <img src="images-apps/3d-alarm.png" width="60px" />Clock
+      </button>
+      <button id="openSettingsBtn">
+        <img src="images-apps/cogwheel.png" width="60px" />Settings
+      </button>
+    </div>
+
+    <footer>
+      <button id="adminInfoBtn">
+        <img src="images-apps/user.png" width="30px" alt="" />
+      </button>
+
+      <div id="footerDateTime">
+        <span id="currentDateTime">Loading Time...</span>
+      </div>
+    </footer>
+
+    <div id="adminPopup" class="popup">
+      <div class="popup-header">
+        <span>Administrator Info</span>
+        <button id="closePopup">X</button>
+      </div>
+      <div class="popup-body">
+        <p>Administrator: Uday Prakash Gupta</p>
+        <br />
+        <p>
+          I'm just a 15 yr old From India <br />
+          <br />
+          Building intuitive and responsive user interfaces with HTML, CSS, and
+          JavaScript.💻
+        </p>
+      </div>
+    </div>
+
+
+    <div id="notesPopup" class="popup">
+      <div class="popup-header">
+        <span> Notes App</span>
+        <button id="closeNotes">X</button>
+      </div>
+      <div class="popup-body">
+        <textarea
+          id="notesArea"
+          placeholder="Write your notes here..."
+        ></textarea>
+        <div class="note-actions">
+          <button id="saveNoteBtn">Save Note</button>
+          <button id="updateNoteBtn" style="display: none">Update Note</button>
+          <button id="deleteNoteBtn" style="display: none">Delete Note</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="savedNotesPopup" class="popup">
+      <div class="popup-header">
+        <span>Saved Notes</span>
+        <button id="closeSavedNotes">X</button>
+      </div>
+      <div class="popup-body">
+        <ul id="notesList"></ul>
+      </div>
+    </div>
+
+    <div id="calculatorPopup" class="popup">
+      <div class="popup-header">
+        <span>Calculator</span>
+        <button id="closeCalculator">X</button>
+      </div>
+      <div class="popup-body">
+        <input type="text" id="calculatorDisplay" disabled />
+        <div id="calculatorButtons">
+          <button class="calc-btn" onclick="appendNumber(7)">7</button>
+          <button class="calc-btn" onclick="appendNumber(8)">8</button>
+          <button class="calc-btn" onclick="appendNumber(9)">9</button>
+          <button class="calc-btn" onclick="appendOperator('+')">+</button>
+          <button class="calc-btn" onclick="appendNumber(4)">4</button>
+          <button class="calc-btn" onclick="appendNumber(5)">5</button>
+          <button class="calc-btn" onclick="appendNumber(6)">6</button>
+          <button class="calc-btn" onclick="appendOperator('-')">-</button>
+          <button class="calc-btn" onclick="appendNumber(1)">1</button>
+          <button class="calc-btn" onclick="appendNumber(2)">2</button>
+          <button class="calc-btn" onclick="appendNumber(3)">3</button>
+          <button class="calc-btn" onclick="appendOperator('*')">*</button>
+          <button class="calc-btn" onclick="appendNumber(0)">0</button>
+          <button class="calc-btn" onclick="clearDisplay()">C</button>
+          <button class="calc-btn" onclick="calculateResult()">=</button>
+          <button class="calc-btn" onclick="appendOperator('/')">/</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="photosPopup" class="popup">
+      <div class="popup-header">
+        <span>Photos App</span>
+        <button id="closePhotos">X</button>
+      </div>
+      <div class="popup-body">
+        <input type="file" id="photoUpload" accept="image/*" multiple />
+        <div id="photosGallery">
+        </div>
+      </div>
+    </div>
+
+    <div id="photoViewerPopup" class="popup">
+      <div class="popup-header">
+        <span>Photo Viewer</span>
+        <button id="closePhotoViewer">X</button>
+      </div>
+      <div class="popup-body">
+        <img id="photoViewerImage" src="" alt="Fullscreen Photo" />
+      </div>
+    </div>
+
+    <div id="docsPopup" class="popup">
+      <div class="popup-header">
+        <span>Docs App</span>
+        <button id="closeDocs">X</button>
+      </div>
+      <div class="popup-body">
+        <textarea
+          id="docsArea"
+          placeholder="Write your document here..."
+        ></textarea>
+        <div class="doc-actions">
+          <button id="saveDocBtn">Save Document</button>
+          <button id="deleteDocBtn" style="display: none">
+            Delete Document
+          </button>
+        </div>
+        <div id="savedDocsList">
+          <h3>Saved Documents</h3>
+          <ul id="docsList"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="clockPopup" class="popup">
+      <div class="popup-header">
+        <span>Set Time and Date</span>
+        <button id="closeClock">X</button>
+      </div>
+      <div class="popup-body">
+        <input type="datetime-local" id="clockInput" />
+        <button id="setClockBtn">Set Clock</button>
+      </div>
+    </div>
+
+    <div id="settingsPopup" class="popup">
+      <div class="popup-header">
+        <span>Settings</span>
+        <button id="closeSettings">X</button>
+      </div>
+      <div class="popup-body">
+        <label for="fontSelector">Select Font:</label>
+        <select id="fontSelector">
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="'Courier New', Courier, monospace">Courier New</option>
+          <option value="'Times New Roman', Times, serif">
+            Times New Roman
+          </option>
+          <option value="'Comic Sans MS', cursive, sans-serif">
+            Comic Sans
+          </option>
+        </select>
+
+        <label for="backgroundColorPicker">Background Color:</label>
+        <input type="color" id="backgroundColorPicker" value="#ffffff" />
+
+        <label for="adminButtonColorPicker">Admin Info Button Color:</label>
+        <input type="color" id="adminButtonColorPicker" value="#007bff" />
+
+        <div class="settings-actions">
+          <button id="applySettingsBtn">Apply</button>
+          <button id="resetSettingsBtn">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
